@@ -3,7 +3,7 @@ import { Alert, KeyboardAvoidingView, TouchableOpacity } from 'react-native';
 
 import { useNavigation } from '@react-navigation/native';
 import { Form } from '@unform/mobile';
-import AsyncStorage from '@react-native-community/async-storage';
+import AsyncStorage from '@react-native-async-storage/async-storage';
 
 import { Container, Title, HelperText, LinkText } from './styles';
 
