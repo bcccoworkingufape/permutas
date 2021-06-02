@@ -1,4 +1,4 @@
-import React, { useRef, useCallback, useState } from 'react';
+import React, { useCallback, useEffect, useRef, useState } from 'react';
 import {
   Image,
   ScrollView,
@@ -10,7 +10,6 @@ import {
 } from 'react-native';
 
 import { useNavigation } from '@react-navigation/native';
-import { Feather } from '@expo/vector-icons';
 import * as Yup from 'yup';
 
 import { Form } from '@unform/mobile';
@@ -59,7 +58,6 @@ const SignUp = () => {
           confirmPassword: Yup.string().oneOf([Yup.ref('password')])
             .required('Confirmação de senha obrigatoria')
             .min(6, 'Digite pelo menos 6 caracteres'),
-
         });
 
         await schema.validate(data, {
@@ -71,8 +69,6 @@ const SignUp = () => {
         Alert.alert('Cadastro realizado com sucesso!');
 
         await signUp(response.data.session);
-        setLoading(false)
-        // navigate('FirstStep');
       } catch (err) {
         setLoading(false)
         if (err instanceof Yup.ValidationError) {
@@ -97,6 +93,8 @@ const SignUp = () => {
     },
     [navigate],
   );
+
+  useEffect(() => { return () => setLoading(false) }, []);
 
   return (
     <>
