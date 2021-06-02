@@ -5,8 +5,11 @@ import React, {
   useContext,
   useEffect,
 } from 'react';
+
 import AsyncStorage from '@react-native-async-storage/async-storage';
+
 import api from '../services/api';
+
 
 const AuthContext = createContext({});
 
@@ -16,14 +19,17 @@ export const AuthProvider = ({ children }) => {
 
   useEffect(() => {
     async function loadStoragedDate() {
+      setLoading(true);
       const [token, user] = await AsyncStorage.multiGet([
         '@Permutas:token',
         '@Permutas:user',
       ]);
       if (token[1] && user[1]) {
-        setData({ token: token[1], user: JSON.parse(user[1]) });
+        setData({
+          token: token[1],
+          user: JSON.parse(user[1])
+        });
       }
-
       setLoading(false);
     }
     loadStoragedDate();
@@ -35,7 +41,7 @@ export const AuthProvider = ({ children }) => {
     setData({});
   }, []);
 
-  const singIn = useCallback(async ({ email, password }) => {
+  const signIn = useCallback(async ({ email, password }) => {
     const response = await api.post('session', {
       email,
       password,
@@ -62,7 +68,14 @@ export const AuthProvider = ({ children }) => {
   }, []);
 
   return (
-    <AuthContext.Provider value={{ user: data.user, loading, singIn, signOut, signUp }}>
+    <AuthContext.Provider value={{
+      user: data.user,
+      loading,
+      signIn,
+      signOut,
+      signUp,
+      setLoading
+    }}>
       {children}
     </AuthContext.Provider>
   );

@@ -1,4 +1,4 @@
-import React, { useRef, useCallback, useState } from 'react';
+import React, { useEffect, useCallback, useRef, useState } from 'react';
 import {
   Image,
   ScrollView,
@@ -7,13 +7,11 @@ import {
   Alert,
 } from 'react-native';
 
+import { Form } from '@unform/mobile';
 import { useNavigation } from '@react-navigation/native';
 import * as Yup from 'yup';
 
-import { Form } from '@unform/mobile';
-
 import { useAuth } from '../../hooks/auth';
-
 import getValidationErrors from '../../utils/getValidationErros';
 
 import Input from '../../components/input';
@@ -38,7 +36,7 @@ const SignIn = () => {
 
   const navigation = useNavigation();
 
-  const { singIn } = useAuth();
+  const { signIn } = useAuth();
 
   const handleSignIn = useCallback(
     async (data) => {
@@ -57,12 +55,10 @@ const SignIn = () => {
           abortEarly: false,
         });
 
-        await singIn({
+        await signIn({
           email: data.email,
           password: data.password,
         });
-        setLoading(false)
-        // navigation.navigate('Dashboard');
       } catch (err) {
         setLoading(false)
         if (err instanceof Yup.ValidationError) {
@@ -77,8 +73,10 @@ const SignIn = () => {
         );
       }
     },
-    [singIn],
+    [signIn],
   );
+
+  useEffect(() => { return () => setLoading(false) }, []);
 
   return (
     <>
