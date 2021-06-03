@@ -1,7 +1,6 @@
 import React from 'react';
-import { View, TouchableOpacity } from 'react-native';
+import { View } from 'react-native';
 import Modal from 'react-native-modal';
-import { FontAwesome } from '@expo/vector-icons';
 
 import {
   ModalView,
@@ -11,7 +10,10 @@ import {
   ItemText,
   TextCenter,
   Button,
-  ButtonText
+  ButtonText,
+  Icon,
+  Separator,
+  Buttons
 } from './styles';
 
 
@@ -32,11 +34,7 @@ const modal = ({
       {item && item.governmentEmployee && item.institution ?
         <ModalView>
           <ModalHeader>
-            <FontAwesome
-              name={'user-circle'}
-              size={130}
-              color='white'
-            />
+            <Icon name="user-circle" />
             <HeaderContent>
               <ItemTitle>{item.governmentEmployee.user.name}</ItemTitle>
               <ItemText>{item.institution.name}</ItemText>
@@ -45,21 +43,14 @@ const modal = ({
             </HeaderContent>
           </ModalHeader>
           <TextCenter>
-            De: {item.governmentEmployee.institutionAddress.city}/{item.governmentEmployee.institutionAddress.state} - Para: {item.destinationAddress.city}/{item.destinationAddress.state}
+            De: {item.governmentEmployee.institutionAddress.city} - {item.governmentEmployee.institutionAddress.state}
           </TextCenter>
-          <View style={{
-            width: '100%',
-            marginTop: 20,
-            borderBottomColor: '#acacac',
-            borderBottomWidth: 1
-          }} />
+          <TextCenter>
+            Para: {item.destinationAddress.city} - {item.destinationAddress.state}
+          </TextCenter>
+          <Separator />
           <TextCenter>Você deseja permutar com essa pessoa?</TextCenter>
-          <View style={{
-            flexDirection: 'row',
-            width: '100%',
-            justifyContent: 'space-around',
-            marginTop: 25
-          }}>
+          <Buttons>
             <Button
               style={{
                 backgroundColor: 'red'
@@ -75,10 +66,11 @@ const modal = ({
               onPress={() => createSolicitation(item.id)}
             >
               <ButtonText>Sim</ButtonText>
-          </Button>
-          </View>
+            </Button>
+          </Buttons>
         </ModalView>
-        : <View></View>}
+        : <View></View>
+      }
     </Modal>
   )
 }
