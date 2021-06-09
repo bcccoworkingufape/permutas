@@ -1,21 +1,25 @@
 import React from 'react';
 import { View } from 'react-native';
 import Modal from 'react-native-modal';
-import { FontAwesome } from '@expo/vector-icons';
 
 import {
-  ModalView,
-  ModalHeader,
+  Button,
+  Buttons,
+  ButtonText,
   HeaderContent,
+  Icon,
+  IconSmall,
+  InfoUser,
   ItemTitle,
   ItemText,
+  ModalView,
+  ModalHeader,
+  Separator,
   TextCenter,
-  Button,
-  ButtonText
 } from './styles';
 
 
-const modal = ({
+const CandidateModal = ({
   item,
   isVisible,
   toggleModal,
@@ -30,45 +34,26 @@ const modal = ({
       onBackdropPress={toggleModal}
       isVisible={isVisible}
     >
-      {item && item.user && item.institution && item.position ?
-        <ModalView>
-          <View style={{ width: '100%', marginBottom: 15 }}>
-            <FontAwesome
-              name='arrow-left'
-              size={30}
-              color='white'
-              onPress={toggleModal}
-            />
-          </View>
+      {item && item.user && item.institution && item.position
+        ? <ModalView>
           <ModalHeader>
-            <FontAwesome
-              name={'user-circle'}
-              size={130}
-              color='white'
-            />
-            <HeaderContent>
-              <ItemTitle>{item.user.name}</ItemTitle>
-              <ItemText>{item.institution.name}</ItemText>
-              <ItemText>{item.position.name}</ItemText>
-              <ItemText>{item.position.description}</ItemText>
-            </HeaderContent>
+            <IconSmall name="arrowleft" onPress={toggleModal} />
+            <InfoUser>
+              <Icon name="user-circle" />
+              <HeaderContent>
+                <ItemTitle>{item.user.name}</ItemTitle>
+                <ItemText>{item.institution.name}</ItemText>
+                <ItemText>{item.position.name}</ItemText>
+                <ItemText>{item.position.description}</ItemText>
+              </HeaderContent>
+            </InfoUser>
           </ModalHeader>
           <TextCenter>
             De: {item.institutionAddress.city}/{item.institutionAddress.state}
           </TextCenter>
-          <View style={{
-            width: '100%',
-            marginTop: 20,
-            borderBottomColor: '#acacac',
-            borderBottomWidth: 1
-          }} />
+          <Separator />
           <TextCenter>Você deseja permutar com essa pessoa?</TextCenter>
-          <View style={{
-            flexDirection: 'row',
-            width: '100%',
-            justifyContent: 'space-around',
-            marginTop: 25
-          }}>
+          <Buttons>
             <Button
               style={{
                 backgroundColor: 'red'
@@ -85,11 +70,11 @@ const modal = ({
             >
               <ButtonText>Confirmar</ButtonText>
             </Button>
-          </View>
+          </Buttons>
         </ModalView>
-        : <View></View>}
+        : <View />}
     </Modal>
   )
 }
 
-export default modal;
+export default CandidateModal;

@@ -17,7 +17,7 @@ import {
 } from './styles';
 
 
-const modal = ({
+const SolicitationModal = ({
   item,
   isVisible,
   toggleModal,
@@ -75,4 +75,4 @@ const modal = ({
   )
 }
 
-export default modal;
+export default SolicitationModal;
