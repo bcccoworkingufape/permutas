@@ -1,4 +1,5 @@
 import styled from 'styled-components/native';
+import { RFValue } from 'react-native-responsive-fontsize';
 import { Platform, FlatList } from 'react-native';
 
 export const Container = styled.View`
@@ -22,28 +23,13 @@ export const Title = styled.Text`
   color: #efefef;
 `;
 
-export const Card = styled.View`
-  width: 100%;
-  height: 80px;
-  background-color: #2d2d39;
-  padding: 10px;
-  align-items: center;
-  justify-content: center;
-  border-radius: 25px;
-`;
-
-export const TextCard = styled.Text`
-  font-size: 18px;
-  color: #fff;
-`;
-
 export const MatchsList = styled(FlatList)`
   margin-top: 30px;
   width: 100%;
 `;
 
 export const MatchCard = styled.TouchableOpacity`
-  height: 120px;
+  height: 130px;
   flex-direction: row;
   background-color: #2D2D39;
   border-radius: 15px;
@@ -59,14 +45,14 @@ export const ContentMatch = styled.View`
 `;
 
 export const TitleMatch = styled.Text`
-  font-size: 18px;
+  font-size: ${RFValue(14)}px;
   font-weight: bold;
   color: #fff;
 `;
 
 export const TextMatch = styled.Text`
-  font-size: 14px;
-  color: #fff;
+  font-size: ${RFValue(13)}px;
+  color: rgba(255, 255, 255, 0.8);
 `;
 
 export const MessageView = styled.View`
