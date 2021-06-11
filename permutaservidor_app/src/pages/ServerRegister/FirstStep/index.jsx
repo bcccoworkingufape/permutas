@@ -2,7 +2,7 @@ import React from 'react';
 
 import { useNavigation } from '@react-navigation/native';
 import { useAuth } from '../../../hooks/auth';
-import AsyncStorage from '@react-native-community/async-storage';
+import AsyncStorage from '@react-native-async-storage/async-storage';
 
 import { Container, Title, Buttons } from './styles';
 import { View } from 'react-native';

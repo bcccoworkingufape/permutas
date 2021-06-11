@@ -11,13 +11,17 @@ const Routes = () => {
 
   if (loading) {
     return (
-      <View style={{ flex: 1, justifyContent: 'center', alignItems: 'center' }}>
+      <View style={{
+        flex: 1,
+        justifyContent: 'center',
+        alignItems: 'center'
+      }}>
         <ActivityIndicator size="large" color="#999" />
       </View>
     );
   }
 
-  return user ? <AppRoutes /> : <AuthRoutes />;
+  return user ? <AppRoutes user={user} /> : <AuthRoutes />;
 };
 
 export default Routes;

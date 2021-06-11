@@ -10,7 +10,7 @@ import {
 } from 'react-native';
 import { Form } from '@unform/mobile';
 import { useNavigation } from '@react-navigation/native';
-import AsyncStorage from '@react-native-community/async-storage';
+import AsyncStorage from '@react-native-async-storage/async-storage';
 import * as Yup from 'yup';
 
 

@@ -1,46 +1,48 @@
-import styled, { css } from 'styled-components/native';
+import styled from 'styled-components/native';
+import { RFValue } from 'react-native-responsive-fontsize';
+
+import { FontAwesome } from '@expo/vector-icons';
 
 export const ModalView = styled.View`
-  flex: 0.5;
   border-width: 0.5px;
   border-color: #acacac;
   border-radius: 25px;
   background-color: #2D2D39;
-  align-items: center;
-  padding: 50px 20px;
+  padding: 40px 20px;
 `;
 
 export const ModalHeader = styled.View`
   flex-direction: row;
   width: 100%;
-  justify-content: space-around;
+  margin-bottom: 20px;
+  padding: 0 10px;
+  align-items: center;
 `;
 
 export const HeaderContent = styled.View`
-  width: 50%;
-  margin-top: 10px;
+  flex: 1;
+  justify-content: center;
 `;
 
 export const ItemTitle = styled.Text`
   color: #fff;
-  font-size: 20px;
+  font-size: ${RFValue(16)}px;
   font-weight: bold;
 `;
 
 export const ItemText = styled.Text`
-  color: #fff;
-  font-size: 16px;
+  color: rgba(255, 255, 255, 0.8);
+  font-size: ${RFValue(14)}px;
 `
 
 export const TextCenter = styled.Text`
-  color: #fff;
-  font-size: 18px;
+  color: rgba(255, 255, 255, 0.8);
+  font-size: ${RFValue(16)}px;
   text-align: center;
-  margin-top: 20px;
 `
 
 export const Button = styled.TouchableOpacity`
-  height: 50px;
+  height: ${RFValue(45)}px;
   width: 45%;
   border-radius: 10px;
   margin-top: 8px;
@@ -50,8 +52,27 @@ export const Button = styled.TouchableOpacity`
 `;
 
 export const ButtonText = styled.Text`
-  /* font-family: 'RobotoSlab-Medium'; */
   color: #ffffff;
-  font-size: 18px;
-  font-weight:bold;
+  font-size: ${RFValue(16)}px;
+  font-weight: bold;
+`;
+
+export const Icon = styled(FontAwesome)`
+  font-size: ${RFValue(80)}px;
+  color: #ffffff;
+  margin-right: 20px;
+`;
+
+export const Separator = styled.View`
+  width: 100%;
+  margin: 15px 0;
+  border-bottom-color: #acacac;
+  border-bottom-width: 1px;
+`;
+
+export const Buttons = styled.View`
+  flex-direction: row;
+  width: 100%;
+  justify-content: space-around;
+  margin-top: 25px;
 `;

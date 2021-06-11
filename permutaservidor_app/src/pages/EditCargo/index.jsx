@@ -10,7 +10,7 @@ import {
 import * as Yup from 'yup';
 
 import { useNavigation } from '@react-navigation/native';
-import AsyncStorage from '@react-native-community/async-storage';
+import AsyncStorage from '@react-native-async-storage/async-storage';
 import { Feather } from '@expo/vector-icons';
 
 import Button from '../../components/button';

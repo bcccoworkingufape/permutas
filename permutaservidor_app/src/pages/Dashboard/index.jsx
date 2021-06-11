@@ -1,7 +1,7 @@
 import React, { useEffect, useState, useCallback } from 'react';
 import { View, Button, Alert, Text, TouchableOpacity } from 'react-native';
 
-import AsyncStorage from '@react-native-community/async-storage';
+import AsyncStorage from '@react-native-async-storage/async-storage';
 import { FontAwesome } from '@expo/vector-icons';
 
 import {
@@ -15,10 +15,9 @@ import {
   MessageView,
   MessageText,
   ListContainer,
-  Header
+  Header,
 } from './styles.js';
 
-import { useAuth } from '../../hooks/auth';
 import api from '../../services/api.js';
 
 import Loading from '../../components/loading';
@@ -28,7 +27,6 @@ import FilterModal from '../../components/filterHighlights';
 
 
 const Dashboard = () => {
-  const { user } = useAuth();
   const [data, setData] = useState([]);
   const [loading, setLoading] = useState(false);
   const [refreshing, setRefreshing] = useState(false);
@@ -39,14 +37,19 @@ const Dashboard = () => {
 
 
   useEffect(() => {
-
     loadData();
   }, [refresh]);
 
-  async function loadData(state='', city='', institution='') {
+  useEffect(() => {
+    return () => {
+      setData([]);
+      setLoading(false);
+    }
+  }, []);
+
+  async function loadData(state = '', city = '', institution = '') {
     try {
-      console.log(state, city, institution)
-      setLoading(true)
+      setLoading(true);
       const token = await AsyncStorage.getItem('@Permutas:token');
       const response = await api.get(`/highlights?state=${state}&city=${city}&institution=${institution}`, {
         headers: {
@@ -54,9 +57,9 @@ const Dashboard = () => {
         }
       });
       setData(response.data);
-      setLoading(false)
+      setLoading(false);
     } catch (error) {
-      setLoading(false)
+      setLoading(false);
       console.log(error.response.data);
     }
   }
@@ -78,16 +81,18 @@ const Dashboard = () => {
           />
           <ContentMatch>
             <TitleMatch>
-              {item.governmentEmployee.user.name}
+              {(item.governmentEmployee.user.name).toUpperCase()}
             </TitleMatch>
             <TextMatch>
-              {item.institution.name}
+              {(item.institution.name).toUpperCase()}
             </TextMatch>
             <TextMatch>
-              {
-                item.governmentEmployee.institutionAddress &&
-                item.destinationAddress &&
-                `De: ${item.governmentEmployee.institutionAddress.city}/${item.governmentEmployee.institutionAddress.state} - Para: ${item.destinationAddress.city}/${item.destinationAddress.state}`}
+              {item.governmentEmployee.institutionAddress &&
+                `De: ${(item.governmentEmployee.institutionAddress.city).toUpperCase()}/${(item.governmentEmployee.institutionAddress.state).toUpperCase()}`
+              }
+            </TextMatch>
+            <TextMatch>
+              {item.destinationAddress && `Para: ${(item.destinationAddress.city).toUpperCase()}/${(item.destinationAddress.state).toUpperCase()}`}
             </TextMatch>
           </ContentMatch>
         </MatchCard>

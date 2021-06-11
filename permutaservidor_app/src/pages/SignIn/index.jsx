@@ -1,23 +1,17 @@
-import React, { useRef, useCallback, useState } from 'react';
+import React, { useEffect, useCallback, useRef, useState } from 'react';
 import {
   Image,
   ScrollView,
-  View,
   KeyboardAvoidingView,
   Platform,
-  TextInput,
   Alert,
-  Text
 } from 'react-native';
 
-import { Feather } from '@expo/vector-icons';
+import { Form } from '@unform/mobile';
 import { useNavigation } from '@react-navigation/native';
 import * as Yup from 'yup';
 
-import { Form } from '@unform/mobile';
-
 import { useAuth } from '../../hooks/auth';
-
 import getValidationErrors from '../../utils/getValidationErros';
 
 import Input from '../../components/input';
@@ -30,12 +24,8 @@ import logo from '../../../assets/logo.png'
 
 import {
   Container,
-  Title,
   ForgotPassword,
   ForgotPasswordText,
-  CreateAccountView,
-  CreateAccountButton,
-  CreateAccountButtonText
 } from './styles';
 
 
@@ -46,7 +36,7 @@ const SignIn = () => {
 
   const navigation = useNavigation();
 
-  const { singIn } = useAuth();
+  const { signIn } = useAuth();
 
   const handleSignIn = useCallback(
     async (data) => {
@@ -65,12 +55,10 @@ const SignIn = () => {
           abortEarly: false,
         });
 
-        await singIn({
+        await signIn({
           email: data.email,
           password: data.password,
         });
-        setLoading(false)
-        // navigation.navigate('Dashboard');
       } catch (err) {
         setLoading(false)
         if (err instanceof Yup.ValidationError) {
@@ -85,8 +73,10 @@ const SignIn = () => {
         );
       }
     },
-    [singIn],
+    [signIn],
   );
+
+  useEffect(() => { return () => setLoading(false) }, []);
 
   return (
     <>
@@ -95,13 +85,13 @@ const SignIn = () => {
         behavior={Platform.OS === 'ios' ? 'padding' : undefined}
         enabled
       >
-        <Loading isVisible={loading}/>
+        <Loading isVisible={loading} />
         <ScrollView
           contentContainerStyle={{ flex: 1 }}
           keyboardShouldPersistTaps="handled"
         >
           <Container>
-            <Image source={logo} style={{width: 190, height: 150, borderRadius: 0 }} />
+            <Image source={logo} style={{ width: 190, height: 150, borderRadius: 0, marginBottom: 10 }} />
             <Form ref={formRef} onSubmit={handleSignIn}>
               <Input
                 autoCorrect={false}
