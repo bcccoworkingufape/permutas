@@ -40,6 +40,13 @@ const Dashboard = () => {
     loadData();
   }, [refresh]);
 
+  useEffect(() => {
+    return () => {
+      setData([]);
+      setLoading(false);
+    }
+  }, []);
+
   async function loadData(state = '', city = '', institution = '') {
     try {
       setLoading(true);
