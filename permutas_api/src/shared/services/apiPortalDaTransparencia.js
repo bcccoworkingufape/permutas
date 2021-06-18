@@ -1,10 +1,10 @@
 import Axios from 'axios';
 
 const api = Axios.create({
-  baseURL: 'http://www.transparencia.gov.br/api-de-dados/',
+  baseURL: 'http://api.portaldatransparencia.gov.br/api-de-dados/',
   headers: {
     Accept: '*/*',
-    'chave-api-dados': '66305882b5475289e6052870f587ed5b',
+    'chave-api-dados': '3730e9a0a3e0960b002bc343c8f00018',
   },
 });
 
